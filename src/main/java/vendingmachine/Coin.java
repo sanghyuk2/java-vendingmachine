@@ -1,5 +1,7 @@
 package vendingmachine;
 
+import java.util.Arrays;
+
 public enum Coin {
     COIN_500(500),
     COIN_100(100),
@@ -13,4 +15,18 @@ public enum Coin {
     }
 
     // 추가 기능 구현
+    public static Coin getCoin(int amount) {
+        return Arrays.stream(Coin.values())
+                .filter(coin -> coin.isMatch(amount))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] getCoin exception"));
+    }
+
+    private boolean isMatch(int amount) {
+        return this.amount == amount;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
 }
